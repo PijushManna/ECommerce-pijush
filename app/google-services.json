@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "252437443511",
+    "project_id": "ecommerce-ef33d",
+    "storage_bucket": "ecommerce-ef33d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252437443511:android:b5f2d87427a42711a1ae32",
+        "android_client_info": {
+          "package_name": "com.blogspot.ecommerce_pijush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252437443511-ravp18ekrfa1ccji1qlmhog8cmo3sapu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn1e_aRbCQUW1UzveFd6o6_4vxWPLzpFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252437443511-ravp18ekrfa1ccji1qlmhog8cmo3sapu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
