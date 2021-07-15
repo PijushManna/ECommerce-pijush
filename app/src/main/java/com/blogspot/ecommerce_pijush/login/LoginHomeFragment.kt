@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.blogspot.ecommerce_pijush.R
+import com.blogspot.ecommerce_pijush.model.User
 
 
 class LoginHomeFragment : Fragment() {
@@ -27,6 +29,11 @@ class LoginHomeFragment : Fragment() {
         btnSignIn.setOnClickListener{
             findNavController().navigate(R.id.action_loginHomeFragment_to_loginFragment)
         }
+        viewModel.user.observe(viewLifecycleOwner,{
+            if (it != null){
+                findNavController().navigate(R.id.action_loginHomeFragment_to_productHomeFragment)
+            }
+        })
         return v
     }
 }

@@ -31,10 +31,19 @@
         <action
             android:id="@+id/action_loginHomeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginHomeFragment_to_productHomeFragment"
+            app:destination="@id/productHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/productHomeFragment"
         android:name="com.blogspot.ecommerce_pijush.products.ProductHomeFragment"
         android:label="fragment_product_home"
-        tools:layout="@layout/fragment_product_home" />
+        tools:layout="@layout/fragment_product_home" >
+        <action
+            android:id="@+id/action_productHomeFragment_to_loginHomeFragment"
+            app:destination="@id/loginHomeFragment"
+            app:popUpTo="@id/loginHomeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
