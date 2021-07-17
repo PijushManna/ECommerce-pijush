@@ -28,23 +28,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-
-        viewModel.user
-
-        val ref = FirebaseDatabase.getInstance().reference
-        val key = ref.child("Product").push().key
-        val item = Product(
-                key!!,
-                "shirt",
-            "https://picsum.photos/200/300",
-                12000.00,
-                5.0,
-                4.5f,
-                9,
-                true,
-                120.00
-        )
-        ref.child("Product").child(key).setValue(item)
     }
 
 }

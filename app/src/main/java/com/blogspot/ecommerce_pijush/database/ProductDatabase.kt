@@ -1,7 +1,6 @@
 package com.blogspot.ecommerce_pijush.database
 
 import android.content.Context
-import android.util.Property
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.blogspot.ecommerce_pijush.models.Product
@@ -9,30 +8,32 @@ import com.blogspot.ecommerce_pijush.models.Product
 
 @Entity
 data class RoomProduct constructor(
-        @PrimaryKey
-        val id: String,
-        val type: String,
-        val imgSrc: String,
-        val price: Double,
-        val discount: Double,
-        val rating : Float,
-        val ratingCount : Int,
-        val trusted: Boolean,
-        val shippingCost: Double
+    @PrimaryKey
+    val id: String,
+    val name: String,
+    val type: String,
+    val imgSrc: String,
+    val price: Double,
+    val discount: Double,
+    val rating: Float,
+    val ratingCount: Int,
+    val trusted: Boolean,
+    val shippingCost: Double
 )
 
 fun List<RoomProduct>.asDomainModel():List<Product>{
     return map {
         Product(
-                it.id,
-                it.type,
-                it.imgSrc,
-                it.price,
-                it.discount,
-                it.rating,
-                it.ratingCount,
-                it.trusted,
-                it.shippingCost
+            it.id,
+            it.name,
+            it.type,
+            it.imgSrc,
+            it.price,
+            it.discount,
+            it.rating,
+            it.ratingCount,
+            it.trusted,
+            it.shippingCost
         )
     }
 }
