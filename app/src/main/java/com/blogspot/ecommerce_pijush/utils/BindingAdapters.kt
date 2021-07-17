@@ -5,7 +5,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.ecommerce_pijush.R
+import com.blogspot.ecommerce_pijush.database.RoomProduct
+import com.blogspot.ecommerce_pijush.database.asDomainModel
+import com.blogspot.ecommerce_pijush.models.Product
+import com.blogspot.ecommerce_pijush.ui.ProductsAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -22,11 +27,10 @@ fun bindImage(v:ImageView, imgUrl: String?){
     }
 }
 
-//@BindingAdapter("listData")
-//fun bindRecyclerAdapter(v:RecyclerView, data: List<PinkItems>?){
-//    val adapter = v.adapter as AllItemsAdapter
-//    adapter.submitList(data)
-//}
+@BindingAdapter("listData")
+fun bindRecyclerAdapter(v: RecyclerView, data: List<Product>?){
+    (v.adapter as ProductsAdapter?)?.submitList(data)
+}
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("price")

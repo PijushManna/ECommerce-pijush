@@ -64,7 +64,9 @@ private lateinit var INSTANCE: RoomProductDatabase
 fun getOfflineDatabase(context: Context):RoomProductDatabase{
     synchronized(RoomProductDatabase::class.java){
         if (!::INSTANCE.isInitialized){
-            INSTANCE = Room.databaseBuilder(context.applicationContext,RoomProductDatabase::class.java,"RoomProductDatabase").build()
+            INSTANCE = Room.databaseBuilder(context.applicationContext,RoomProductDatabase::class.java,"RoomProductDatabase")
+                .fallbackToDestructiveMigration()
+                .build()
         }
         return INSTANCE
     }
