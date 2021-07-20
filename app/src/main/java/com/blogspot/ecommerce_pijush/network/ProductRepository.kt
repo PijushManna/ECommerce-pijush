@@ -43,6 +43,7 @@ class ProductRepository(val database:RoomProductDatabase) {
                     prod?.let { it1 ->
                         CoroutineScope(Dispatchers.IO).launch {
                             database.roomProductDao.insertAll(it1.asDomainModel())
+                            fetchLocalData()
                         }
                     }
                 }
@@ -52,6 +53,7 @@ class ProductRepository(val database:RoomProductDatabase) {
                     prod?.let { it1 ->
                         CoroutineScope(Dispatchers.IO).launch {
                             database.roomProductDao.insertAll(it1.asDomainModel())
+                            fetchLocalData()
                         }
                     }
                 }
@@ -61,6 +63,7 @@ class ProductRepository(val database:RoomProductDatabase) {
                     prod?.let { it1 ->
                         CoroutineScope(Dispatchers.IO).launch {
                             database.roomProductDao.remove(it1.id)
+                            fetchLocalData()
                         }
                     }
                 }
@@ -70,6 +73,7 @@ class ProductRepository(val database:RoomProductDatabase) {
                     prod?.let { it1 ->
                         CoroutineScope(Dispatchers.IO).launch {
                             database.roomProductDao.insertAll(it1.asDomainModel())
+
                         }
                     }
                 }
