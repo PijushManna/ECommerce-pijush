@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                app:listData="@{model.repository.allData}"
+                app:listData="@{model.repository.data}"
                 tools:listitem="@layout/layout_pink_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

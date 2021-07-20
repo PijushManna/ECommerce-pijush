@@ -1,22 +1,12 @@
 package com.blogspot.ecommerce_pijush
 
 import android.app.Application
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
-import com.blogspot.ecommerce_pijush.database.RoomProduct
-import com.blogspot.ecommerce_pijush.database.asDomainModel
 import com.blogspot.ecommerce_pijush.database.getOfflineDatabase
-import com.blogspot.ecommerce_pijush.models.Product
 import com.blogspot.ecommerce_pijush.network.ProductRepository
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -26,9 +16,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val repository = ProductRepository(database)
     init {
         _user.value = Firebase.auth.currentUser
-        viewModelScope.launch {
-            repository.refreshData()
-        }
+        repository.refreshData()
     }
 
     class Factory(private val app: Application) : ViewModelProvider.Factory {

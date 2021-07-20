@@ -1,24 +1,40 @@
 package com.blogspot.ecommerce_pijush.network
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.MutableLiveData
 import com.blogspot.ecommerce_pijush.database.RoomProductDatabase
 import com.blogspot.ecommerce_pijush.database.asDomainModel
 import com.blogspot.ecommerce_pijush.models.Product
-import com.google.firebase.database.*
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ProductRepository(val database:RoomProductDatabase) {
-    val allData:LiveData<List<Product>> = Transformations.map(database.roomProductDao.getAllData()){
-        it.asDomainModel()
+    private var allData = listOf<Product>()
+
+
+    var data = MutableLiveData<List<Product>>()
+
+    private fun fetchLocalData() {
+        CoroutineScope(Dispatchers.Main).launch {
+            allData = database.roomProductDao.getAllData().asDomainModel()
+            data.value = allData
+        }
+
     }
 
-    suspend fun refreshData(){
-        withContext(Dispatchers.IO) {
+    fun useFilter(query: String) {
+        data.value = allData.filter {
+            it.type.contains(query, true)
+        }
+    }
+
+    fun refreshData(){
+        CoroutineScope(Dispatchers.IO).launch {
             val proRef = FirebaseDatabase.getInstance().reference.child("Product")
 
             proRef.addChildEventListener(object : ChildEventListener {
@@ -62,6 +78,8 @@ class ProductRepository(val database:RoomProductDatabase) {
                     Log.e("Firebase Error", error.message)
                 }
             })
+
+            fetchLocalData()
         }
     }
 }

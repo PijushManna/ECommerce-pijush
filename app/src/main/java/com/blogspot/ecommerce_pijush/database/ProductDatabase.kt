@@ -1,7 +1,6 @@
 package com.blogspot.ecommerce_pijush.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.blogspot.ecommerce_pijush.models.Product
 
@@ -41,7 +40,7 @@ fun List<RoomProduct>.asDomainModel():List<Product>{
 @Dao
 interface RoomProductDao {
     @Query("select * from RoomProduct")
-    fun getAllData(): LiveData<List<RoomProduct>>
+    fun getAllData(): List<RoomProduct>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg item: RoomProduct)
@@ -64,8 +63,9 @@ private lateinit var INSTANCE: RoomProductDatabase
 fun getOfflineDatabase(context: Context):RoomProductDatabase{
     synchronized(RoomProductDatabase::class.java){
         if (!::INSTANCE.isInitialized){
-            INSTANCE = Room.databaseBuilder(context.applicationContext,RoomProductDatabase::class.java,"RoomProductDatabase")
-                .fallbackToDestructiveMigration()
+            INSTANCE = Room.databaseBuilder(context.applicationContext, RoomProductDatabase::class.java, "RoomProductDatabase")
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                 .build()
         }
         return INSTANCE
