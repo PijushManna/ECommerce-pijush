@@ -16,6 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:drawableLeft="@android:drawable/ic_input_add"
+            android:text="@string/add_to_cart"
+            android:textColor="@android:color/white"
+            android:visibility="@{model.cartIsVisible}"
+            app:cornerRadius="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
         <SearchView
             android:id="@+id/scr_Items"
             android:layout_width="0dp"
@@ -43,6 +58,7 @@
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 app:listData="@{model.repository.data}"
                 tools:listitem="@layout/layout_pink_item" />
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

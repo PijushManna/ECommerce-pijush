@@ -28,11 +28,13 @@ class ProductsAdapter(private val viewModel: MainViewModel):
             binding.itemAdd.setOnClickListener {
                 itemCount += 1
                 binding.itemCount.text = itemCount.toString()
+                viewModel.addToCart(item.id,itemCount)
             }
             binding.itemSub.setOnClickListener {
                 if (itemCount>0){
                     itemCount -= 1
                     binding.itemCount.text = itemCount.toString()
+                    viewModel.addToCart(item.id,itemCount)
                 }
             }
             binding.itemBookmark.setOnClickListener {

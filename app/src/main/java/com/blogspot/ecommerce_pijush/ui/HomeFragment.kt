@@ -38,6 +38,11 @@ class HomeFragment : Fragment() {
         binding.srlItems.setOnRefreshListener {
             productViewModel.repository.refreshData()
             binding.srlItems.isRefreshing = false
+            productViewModel.clearCart()
+        }
+
+        binding.btnAddToCart.setOnClickListener{
+            productViewModel.submitCart()
         }
         return binding.root
     }

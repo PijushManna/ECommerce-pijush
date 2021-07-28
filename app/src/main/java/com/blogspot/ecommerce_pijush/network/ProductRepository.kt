@@ -24,7 +24,6 @@ class ProductRepository(val database:RoomProductDatabase) {
             allData = database.roomProductDao.getAllData().asDomainModel()
             data.value = allData
         }
-
     }
 
     fun useFilter(query: String) {
@@ -36,7 +35,7 @@ class ProductRepository(val database:RoomProductDatabase) {
     fun refreshData(){
         CoroutineScope(Dispatchers.IO).launch {
             val proRef = FirebaseDatabase.getInstance().reference.child("Product")
-
+            proRef.orderByChild("name")
             proRef.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val prod = snapshot.getValue(Product::class.java)

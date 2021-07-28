@@ -18,4 +18,8 @@
     <string name="invalid_number">Invalid mobile number</string>
     <string name="creating_new_account">Mobile number is valid.Please wait we are creating your account</string>
     <string name="number_already_exist">Mobile number already exist</string>
+    <string name="user_online">Back to online</string>
+    <string name="user_offline">No internet.Using offline</string>
+    <string name="button">Button</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>

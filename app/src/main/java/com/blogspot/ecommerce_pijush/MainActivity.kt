@@ -1,34 +1,31 @@
 package com.blogspot.ecommerce_pijush
 
-import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.blogspot.ecommerce_pijush.database.getOfflineDatabase
-import com.blogspot.ecommerce_pijush.models.Product
-import com.blogspot.ecommerce_pijush.network.ProductRepository
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.firebase.ui.auth.util.ExtraConstants
-import com.google.firebase.auth.ActionCodeSettings
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
+import com.blogspot.ecommerce_pijush.utils.NoInternetBroadcast
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class MainActivity : AppCompatActivity() {
     private val viewModel:MainViewModel by lazy {
-        ViewModelProvider(this,MainViewModel.Factory(application)).get(MainViewModel::class.java)
+        ViewModelProvider(this, MainViewModel.Factory(application)).get(MainViewModel::class.java)
     }
+    private lateinit var noInternet: NoInternetBroadcast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        val bottomNavigationView:BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val badge = bottomNavigationView.getOrCreateBadge(R.id.mnu_account)
+        noInternet = NoInternetBroadcast(badge)
+        registerReceiver(noInternet, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(noInternet)
+    }
 }

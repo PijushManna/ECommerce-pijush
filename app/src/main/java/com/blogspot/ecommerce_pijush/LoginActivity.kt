@@ -25,6 +25,9 @@ class LoginActivity : AppCompatActivity() {
 
         if(Firebase.auth.currentUser == null){
             createSignInIntent()
+        } else {
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
     }
     // ---- [ AUTH ] ----
@@ -53,6 +56,10 @@ class LoginActivity : AppCompatActivity() {
         val response = result.idpResponse
         if (result.resultCode == RESULT_OK) {
             val user = FirebaseAuth.getInstance().currentUser
+            if (user != null){
+                startActivity(Intent(this,MainActivity::class.java))
+                finish()
+            }
         } else {
             createSignInIntent()
         }
