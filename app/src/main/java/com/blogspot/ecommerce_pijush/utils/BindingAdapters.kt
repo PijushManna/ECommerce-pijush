@@ -32,6 +32,11 @@ fun bindRecyclerAdapter(v: RecyclerView, data: List<Product>?){
     (v.adapter as ProductsAdapter?)?.submitList(data)
 }
 
+@BindingAdapter("cartData")
+fun bindCartAdapter(v: RecyclerView, data: List<Product>?){
+    (v.adapter as ProductsAdapter?)?.submitList(data)
+}
+
 @SuppressLint("SetTextI18n")
 @BindingAdapter("price")
 fun bindPrice(v:TextView, data: Double){

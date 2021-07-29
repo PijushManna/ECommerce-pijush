@@ -10,4 +10,8 @@
         android:name="com.blogspot.ecommerce_pijush.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.blogspot.ecommerce_pijush.ui.CartFragment"
+        android:label="Your Cart" />
 </navigation>

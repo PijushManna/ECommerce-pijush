@@ -4,21 +4,24 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blogspot.ecommerce_pijush.database.RoomProductDatabase
 import com.blogspot.ecommerce_pijush.database.asDomainModel
+import com.blogspot.ecommerce_pijush.models.Cart
 import com.blogspot.ecommerce_pijush.models.Product
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProductRepository(val database:RoomProductDatabase) {
+    //Variables
     private var allData = listOf<Product>()
-
-
     var data = MutableLiveData<List<Product>>()
 
+    var cartItems = MutableLiveData<ArrayList<Cart>>()
+    //END Variables
+
+    //Methods
     private fun fetchLocalData() {
         CoroutineScope(Dispatchers.Main).launch {
             allData = database.roomProductDao.getAllData().asDomainModel()
@@ -34,7 +37,9 @@ class ProductRepository(val database:RoomProductDatabase) {
 
     fun refreshData(){
         CoroutineScope(Dispatchers.IO).launch {
-            val proRef = FirebaseDatabase.getInstance().reference.child("Product")
+            val instance = FirebaseDatabase.getInstance().reference
+            val proRef = instance.child("Product")
+            val cartRef = instance.child("Cart")
             proRef.orderByChild("name")
             proRef.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -82,7 +87,26 @@ class ProductRepository(val database:RoomProductDatabase) {
                 }
             })
 
+            if (Firebase.auth.uid != null){
+                cartRef.child(Firebase.auth.uid!!).addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        snapshot.children.iterator().forEach{
+                            val items = it.value!!
+                            val cart = Cart(it.key!!, items as HashMap<String, Int?>)
+                            cartItems.value?.add(cart)
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.d("Cart","cancelled")
+                    }
+
+                })
+            }
+
             fetchLocalData()
         }
     }
 }
+
