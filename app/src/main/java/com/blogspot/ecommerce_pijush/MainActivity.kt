@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private val viewModel:MainViewModel by lazy {
-        ViewModelProvider(this, MainViewModel.Factory(application)).get(MainViewModel::class.java)
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
     private lateinit var noInternet: NoInternetBroadcast
     private lateinit var navController: NavController

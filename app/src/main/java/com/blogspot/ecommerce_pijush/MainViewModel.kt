@@ -33,15 +33,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         clearCart()
     }
 
-    class Factory(private val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return MainViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
+//    class Factory(private val app: Application) : ViewModelProvider.Factory {
+//        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+//                @Suppress("UNCHECKED_CAST")
+//                return MainViewModel(app) as T
+//            }
+//            throw IllegalArgumentException("Unable to construct viewmodel")
+//        }
+//    }
 
     private fun showCart(){
         _cartIsVisible.value = View.VISIBLE
